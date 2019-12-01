@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <select id="selectByt" resultType="int">
+        select count(id) from cmfz_user where datediff(now(),createDate) &lt;#{t}
+    </select>
+    <select id="selectSex" resultType="com.baizhi.entity.Use">
+        select province name,count(id) from cmfz_user where sex=#{i} group by province
+    </select>
+
+    <insert id="insert">
+        insert into cmfz_user values(#{id},#{name},#{province},#{createDate},#{sex})
+    </insert>
+</mapper>

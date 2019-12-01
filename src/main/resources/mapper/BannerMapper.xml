@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BannerDao">
+    <insert id="saveBanner" parameterType="com.baizhi.entity.Banner">
+        insert into cmfz_banner (id,title,description,time,state,img)
+        values(#{id},#{title},#{description},#{time},#{state},#{img})
+    </insert>
+
+    <delete id="deleteBanner">
+        delete from cmfz_banner where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateBanner">
+        update cmfz_banner set title=#{title},description=#{description},time=#{time},state=#{state}
+        where id =#{id}
+    </update>
+    <select id="findAllBanner" resultType="com.baizhi.entity.Banner">
+        select id,title,description,time,state,img from cmfz_banner limit #{start},#{rows}
+    </select>
+    <update id="updateBannerImg">
+        update cmfz_banner set img=#{img,jdbcType=VARCHAR} where id=#{id}
+    </update>
+    <select id="getCount" resultType="Integer">
+        select count(id) from cmfz_banner
+    </select>
+    <select id="selectAll" resultType="com.baizhi.entity.Banner">
+        select id,title,description,time,state,img from cmfz_banner
+    </select>
+</mapper>
